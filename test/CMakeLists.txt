@@ -29,12 +29,13 @@ add_test(NAME cli.has_help COMMAND intro --help)
 add_test(NAME cli.version_matches COMMAND intro --version)
 set_tests_properties(cli.version_matches PROPERTIES PASS_REGULAR_EXPRESSION "${PROJECT_VERSION}")
 
-add_executable(tests tests.cpp)
+add_executable(tests tests.cpp pcb_tests.cpp)
 target_link_libraries(
   tests
   PRIVATE 
           pcbtools::pcbtools_warnings
           pcbtools::pcbtools_options
+		  pcbtools::pcb_library
           pcbtools::sample_library)
 target_link_system_libraries(tests PRIVATE Catch2::Catch2WithMain)
 # Cppcheck and clang-tidy are disabled for tests
