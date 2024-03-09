@@ -30,7 +30,7 @@
 // configuration step. It creates a namespace called `pcbtools`. You can modify
 // the source template at `configured_files/config.hpp.in`.
 #include <internal_use_only/config.hpp>
-
+#include "pcbtools/get_prefix.h"
 
 // NOLINTNEXTLINE(bugprone-exception-escape)
 int main(int argc, const char **argv)
@@ -52,6 +52,8 @@ int main(int argc, const char **argv)
       return EXIT_SUCCESS;
     }
 
+    const auto prefix = pcb_tools::get_prefix();
+    fmt::print("prefix:{}", prefix);
 
   } catch (const std::exception &e) {
     spdlog::error("Unhandled exception in main: {}", e.what());

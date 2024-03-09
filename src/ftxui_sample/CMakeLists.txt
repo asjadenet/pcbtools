@@ -2,7 +2,8 @@ add_executable(pcb main.cpp)
 
 target_link_libraries(
   pcb
-  PRIVATE pcbtools::pcbtools_options
+  PRIVATE pcbtools::pcb_library 
+          pcbtools::pcbtools_options
           pcbtools::pcbtools_warnings)
 
 target_link_system_libraries(
