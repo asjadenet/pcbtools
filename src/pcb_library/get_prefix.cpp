@@ -1,5 +1,6 @@
 #include "pcbtools/get_prefix.h"
 #include <filesystem>
+#include <string>
 
 namespace pcb_tools
 {
