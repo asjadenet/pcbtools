@@ -17,7 +17,7 @@
 #include <CLI/Config.hpp>// NOLINT
 #include <CLI/Formatter.hpp>// NOLINT
 #include <fmt/core.h>// for print
-#include <fmt/format.h>// for format
+//#include <fmt/format.h>// for format
 //#include <ftxui/component/component.hpp>// for Slider
 //#include <ftxui/component/screen_interactive.hpp>// for ScreenInteractive
 //#include <ftxui/dom/elements.hpp>// for text, border
