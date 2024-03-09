@@ -1,12 +1,12 @@
-add_executable(intro main.cpp)
+add_executable(pcb main.cpp)
 
 target_link_libraries(
-  intro
+  pcb
   PRIVATE pcbtools::pcbtools_options
           pcbtools::pcbtools_warnings)
 
 target_link_system_libraries(
-  intro
+  pcb
   PRIVATE
           CLI11::CLI11
           fmt::fmt
@@ -15,4 +15,4 @@ target_link_system_libraries(
           ftxui::dom
           ftxui::component)
 
-target_include_directories(intro PRIVATE "${CMAKE_BINARY_DIR}/configured_files/include")
+target_include_directories(pcb PRIVATE "${CMAKE_BINARY_DIR}/configured_files/include")
