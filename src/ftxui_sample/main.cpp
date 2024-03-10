@@ -61,7 +61,7 @@ int main(int argc, const char **argv)
     const std::string file_path = R"(/mnt/c/Users/tiit/Documents/kicad/amp1/amp1-Edge_Cuts.gbr)";
 #endif
 
-    const auto bi = pcb_tools::get_board_info(file_path);
-    fmt::print("x:{}, y:{}\n", bi.start.x, bi.start.y);
+    const auto board_info = pcb_tools::get_board_info(file_path);
+    fmt::print("x:{}, y:{}\n", board_info.start.x, board_info.start.y);
   } catch (const std::exception &e) { spdlog::error("Unhandled exception in main: {}", e.what()); }
 }
