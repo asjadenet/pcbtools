@@ -31,6 +31,7 @@
 // the source template at `configured_files/config.hpp.in`.
 #include <internal_use_only/config.hpp>
 #include "pcbtools/get_prefix.h"
+#include "pcbtools/get_board_info.h"
 
 // NOLINTNEXTLINE(bugprone-exception-escape)
 int main(int argc, const char **argv)
@@ -44,7 +45,6 @@ int main(int argc, const char **argv)
     app.add_flag("--version", show_version, "Show version information");
 
 
-
     CLI11_PARSE(app, argc, argv)
 
     if (show_version) {
@@ -53,9 +53,15 @@ int main(int argc, const char **argv)
     }
 
     const auto prefix = pcb_tools::get_prefix();
-    fmt::print("prefix:{}", prefix);
+    fmt::print("prefix:{}\n", prefix);
 
-  } catch (const std::exception &e) {
-    spdlog::error("Unhandled exception in main: {}", e.what());
-  }
+#if defined(WIN32)
+    const std::string file_path = R"(C:\Users\tiit\Documents\kicad\amp1\amp1-Edge_Cuts.gbr)";
+#else
+    const std::string file_path = R"(/mnt/c/Users/tiit/Documents/kicad/amp1/amp1-Edge_Cuts.gbr)";
+#endif
+
+    const auto bi = pcb_tools::get_board_info(file_path);
+    fmt::print("x:{}, y:{}\n", bi.start.x, bi.start.y);
+  } catch (const std::exception &e) { spdlog::error("Unhandled exception in main: {}", e.what()); }
 }

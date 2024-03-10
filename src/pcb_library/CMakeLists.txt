@@ -3,7 +3,9 @@ include(GenerateExportHeader)
 
 add_library(pcb_library 
 pcb_library.cpp 
-get_prefix.cpp)
+get_prefix.cpp
+get_board_info.cpp
+)
 
 
 
