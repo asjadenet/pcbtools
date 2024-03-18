@@ -32,7 +32,6 @@ set_tests_properties(cli.version_matches PROPERTIES PASS_REGULAR_EXPRESSION "${P
 add_executable(tests 
 tests.cpp
 pcb_tests.cpp
-get_prefix_tests.cpp
 )
 target_link_libraries(
   tests
