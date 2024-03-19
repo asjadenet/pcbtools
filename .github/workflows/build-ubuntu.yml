@@ -53,7 +53,7 @@ jobs:
         with:
           compiler: llvm-17
           cmake: true
-          ninja: true
+          ninja: false
           vcpkg: false
           cppcheck: true
           ccache: false
@@ -66,7 +66,7 @@ jobs:
         with:
           compiler: gcc-11
           cmake: true
-          ninja: true
+          ninja: false
           vcpkg: false
           cppcheck: true
           ccache: false
