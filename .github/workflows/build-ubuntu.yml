@@ -54,9 +54,9 @@ jobs:
           compiler: llvm-17
           cmake: true
           ninja: true
-          vcpkg: true
+          vcpkg: false
           cppcheck: true
-          ccache: true
+          ccache: false
           clangtidy: 17
           gcovr: true
 
@@ -67,9 +67,9 @@ jobs:
           compiler: gcc-11
           cmake: true
           ninja: true
-          vcpkg: true
+          vcpkg: false
           cppcheck: true
-          ccache: true
+          ccache: false
           clangtidy: true
           gcovr: true
 
