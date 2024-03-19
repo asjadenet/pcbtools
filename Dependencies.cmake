@@ -49,16 +49,4 @@ function(pcbtools_setup_dependencies)
         2.3.2)
   endif()
 
-  if(NOT TARGET ftxui::screen)
-    cpmaddpackage(
-      NAME
-        ftxui
-      GITHUB_REPOSITORY
-        "ArthurSonzogni/FTXUI"
-      GIT_TAG
-        "v5.0.0"
-      OPTIONS
-        "FTXUI_BUILD_DOCS OFF"
-        "FTXUI_BUILD_EXAMPLES OFF")
-  endif()
 endfunction()
