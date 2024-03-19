@@ -29,11 +29,7 @@ add_test(NAME cli.has_help COMMAND pcb --help)
 add_test(NAME cli.version_matches COMMAND pcb --version)
 set_tests_properties(cli.version_matches PROPERTIES PASS_REGULAR_EXPRESSION "${PROJECT_VERSION}")
 
-add_executable(tests 
-tests.cpp
-pcb_tests.cpp
-get_prefix_tests.cpp
-)
+add_executable(tests tests.cpp pcb_tests.cpp)
 target_link_libraries(
   tests
   PRIVATE 

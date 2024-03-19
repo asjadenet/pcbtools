@@ -1,5 +1,5 @@
 #include <pcbtools/sample_library.hpp>
-/*
+
 int factorial(int input) noexcept
 {
   int result = 1;
@@ -11,4 +11,3 @@ int factorial(int input) noexcept
 
   return result;
 }
-*/

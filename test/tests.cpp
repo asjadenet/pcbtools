@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <pcbtools/sample_library.hpp>
-/*
+
 TEST_CASE("Factorials are computed", "[factorial]")
 {
   REQUIRE(factorial(0) == 1);
@@ -10,4 +10,3 @@ TEST_CASE("Factorials are computed", "[factorial]")
   REQUIRE(factorial(3) == 6);
   REQUIRE(factorial(10) == 3628800);
 }
-*/
