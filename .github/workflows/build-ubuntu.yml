@@ -51,13 +51,13 @@ jobs:
         if: ${{ contains(matrix.preset, 'clang') }}
         uses: aminya/setup-cpp@v1
         with:
-          compiler: llvm-17
+          compiler: llvm-15
           cmake: true
           ninja: true
-          vcpkg: false
+          vcpkg: true
           cppcheck: true
-          ccache: false
-          clangtidy: 17
+          ccache: true
+          clangtidy: 15
           gcovr: true
 
       - name: Setup Cpp
@@ -67,32 +67,19 @@ jobs:
           compiler: gcc-11
           cmake: true
           ninja: true
-          vcpkg: false
+          vcpkg: true
           cppcheck: true
-          ccache: false
+          ccache: true
           clangtidy: true
           gcovr: true
 
-      - name: Install latest CMake
-        run: |
-          # Remove any existing version of CMake
-          sudo apt-get purge --auto-remove cmake
-          # Download and install the latest version
-          wget -O cmake.sh https://github.com/Kitware/CMake/releases/download/v3.27.9/cmake-3.27.9-linux-x86_64.sh
-          sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
-          # Update the PATH
-          echo "/usr/local/bin" >> $GITHUB_PATH
-          cmake --version          
-
       - name: Configure CMake
         run: |
-          cmake --version
           cmake --preset ${{matrix.preset}}
 
       - name: Build
         # Execute the build.
         run: |
-          cmake --version
           cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
