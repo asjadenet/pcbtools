@@ -33,17 +33,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Install latest CMake
-        run: |
-          # Remove any existing version of CMake
-          sudo apt-get purge --auto-remove cmake
-          # Download and install the latest version
-          wget -O cmake.sh https://github.com/Kitware/CMake/releases/download/v3.27.9/cmake-3.27.9-linux-x86_64.sh
-          sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
-          # Update the PATH
-          echo "/usr/local/bin" >> $GITHUB_PATH
-          cmake --version
-
       # TODO: Add caching with presets
       # - name: Setup Cache
       #   uses: ./.github/actions/setup_cache
@@ -84,13 +73,26 @@ jobs:
           clangtidy: true
           gcovr: true
 
+      - name: Install latest CMake
+        run: |
+          # Remove any existing version of CMake
+          sudo apt-get purge --auto-remove cmake
+          # Download and install the latest version
+          wget -O cmake.sh https://github.com/Kitware/CMake/releases/download/v3.27.9/cmake-3.27.9-linux-x86_64.sh
+          sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
+          # Update the PATH
+          echo "/usr/local/bin" >> $GITHUB_PATH
+          cmake --version          
+
       - name: Configure CMake
         run: |
+          cmake --version
           cmake --preset ${{matrix.preset}}
 
       - name: Build
         # Execute the build.
         run: |
+          cmake --version
           cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
