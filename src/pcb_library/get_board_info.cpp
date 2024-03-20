@@ -6,7 +6,6 @@
 #include <string>
 #include <limits>
 #include <sstream>
-#include <algorithm>
 
 namespace pcb_tools {
 double parseCoordinate(const std::string &coordinate)
