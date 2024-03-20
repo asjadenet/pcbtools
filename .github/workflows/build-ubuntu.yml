@@ -51,13 +51,13 @@ jobs:
         if: ${{ contains(matrix.preset, 'clang') }}
         uses: aminya/setup-cpp@v1
         with:
-          compiler: llvm-17
+          compiler: llvm-16
           cmake: true
           ninja: true
           vcpkg: true
           cppcheck: true
           ccache: true
-          clangtidy: 17
+          clangtidy: 16
           gcovr: true
 
       - name: Setup Cpp
