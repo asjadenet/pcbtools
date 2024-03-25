@@ -12,6 +12,8 @@ on:
 jobs:
   Test:
     runs-on: windows-latest
+    env:
+      PCB_TOOLS_DATA: ${{ github.workspace }}/data 
     strategy:
       fail-fast: false
 

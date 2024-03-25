@@ -12,6 +12,8 @@ on:
 jobs:
   Test:
     runs-on: ubuntu-latest
+    env:
+      PCB_TOOLS_DATA: ${{ github.workspace }}/data    
     strategy:
       fail-fast: false
 
@@ -80,6 +82,8 @@ jobs:
       - name: Build
         # Execute the build.
         run: |
+          echo "PCB_TOOLS_DATA is set to $PCB_TOOLS_DATA"
+          ls $PCB_TOOLS_DATA
           cmake --build --preset build-${{matrix.preset}}
 
       - name: Test
