@@ -3,14 +3,26 @@
 #include <stdexcept>
 #include <filesystem>
 #include <string>
+#if defined(_MSC_VER)
 #include <gsl/gsl-lite.hpp>
+#endif
 
 namespace pcb_tools {
 std::string getEnvVar(const char *name)
 {
   std::string result;
 #if defined(_MSC_VER)
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wwhatever-warning"
+#endif
+  // NOLINTNEXTLINE(cppcoreguidelines-no-malloc,hicpp-no-malloc)
   static const auto freeDeleter = [](gsl::owner<char *> ptr) { free(ptr); };
+#if defined(__GNUC__) || defined(__clang__)
+  #pragma GCC diagnostic pop
+#endif
+
+  // NOLINTNEXTLINE(misc-const-correctness)
   using cstring_uptr = std::unique_ptr<char, decltype(freeDeleter)>;
 
   gsl::owner<char *> rawValue = nullptr;// Explicitly mark rawValue as an owner.
@@ -18,7 +30,7 @@ std::string getEnvVar(const char *name)
   if (_dupenv_s(&rawValue, &size, name) != 0 || rawValue == nullptr) {
     throw std::runtime_error("Failed to get environment variable.");
   }
-  cstring_uptr value(rawValue, freeDeleter);// Transfer ownership to the smart pointer.
+  const cstring_uptr value(rawValue, freeDeleter);// Transfer ownership to the smart pointer.
   result = value.get();
 #else
   const char *value = std::getenv(name);// NOLINT(concurrency-mt-unsafe)
