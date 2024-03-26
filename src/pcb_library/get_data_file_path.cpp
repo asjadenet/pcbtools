@@ -12,15 +12,9 @@ std::string getEnvVar(const char *name)
 {
   std::string result;
 #if defined(_MSC_VER)
-#if defined(__GNUC__) || defined(__clang__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wwhatever-warning"
-#endif
+
   // NOLINTNEXTLINE(cppcoreguidelines-no-malloc,hicpp-no-malloc)
   static const auto freeDeleter = [](gsl::owner<char *> ptr) { free(ptr); };
-#if defined(__GNUC__) || defined(__clang__)
-  #pragma GCC diagnostic pop
-#endif
 
   // NOLINTNEXTLINE(misc-const-correctness)
   using cstring_uptr = std::unique_ptr<char, decltype(freeDeleter)>;
