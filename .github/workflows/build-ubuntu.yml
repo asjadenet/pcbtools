@@ -34,7 +34,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-
+        with:
+          submodules: 'recursive' # This is crucial for cloning submodules
       # TODO: Add caching with presets
       # - name: Setup Cache
       #   uses: ./.github/actions/setup_cache
