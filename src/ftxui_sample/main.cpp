@@ -53,8 +53,8 @@ int main(int argc, const char **argv)
       return EXIT_SUCCESS;
     }
 
-    auto get_file_full_path = [](const std::string &prefix, const std::filesystem::path &dir) {
-      return dir / (prefix + "-Edge_Cuts.gbr");
+    auto get_file_full_path = [](const std::string &prefix, const std::filesystem::path &cur_dir) {
+      return cur_dir / (prefix + "-Edge_Cuts.gbr");
     };
 
     const auto file_full_path = dir
