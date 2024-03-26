@@ -7,25 +7,22 @@
 
 namespace pcb_tools {
 
-#if defined(_MSC_VER)
-// Custom deleter that uses free. This encapsulates the call to free in a RAII manner.
-auto freeDeleter = [](char* ptr) { free(ptr); };
-
-// Wrap the C string in a unique_ptr with the custom deleter.
-using cstring_uptr = std::unique_ptr<char, decltype(freeDeleter)>;
-#endif
 
 std::string getEnvVar(const char *name)
 {
   std::string result;
 #if defined(_MSC_VER)
+  // Define a static const deleter inside the function to limit its scope and ensure it's immutable.
+  static const auto freeDeleter = [](char *ptr) { free(ptr); };
+  using cstring_uptr = std::unique_ptr<char, decltype(freeDeleter)>;
+
   char *rawValue = nullptr;
   size_t size = 0;
-  // _dupenv_s requires a call to free, so we ensure it's managed by a smart pointer.
   if (_dupenv_s(&rawValue, &size, name) != 0 || rawValue == nullptr) {
     throw std::runtime_error("Failed to get environment variable.");
   }
-  cstring_uptr value(rawValue, freeDeleter);
+  // Declare the smart pointer const to enforce const-correctness.
+  const cstring_uptr value(rawValue, freeDeleter);
   result = value.get();
 #else
   const char *value = std::getenv(name);// NOLINT(concurrency-mt-unsafe)
