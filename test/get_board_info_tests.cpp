@@ -15,4 +15,7 @@ TEST_CASE("PCB tests get_board_info empty")
    const auto board_info = pcb_tools::get_board_info(pcb_tools::get_data_file_path(file_path));
    REQUIRE(board_info.size.x == Catch::Approx(54.864));
    REQUIRE(board_info.size.y == Catch::Approx(51.308));
+
+   REQUIRE(board_info.start.x == Catch::Approx(83.82));
+   REQUIRE(board_info.start.y == Catch::Approx(-150.368));
  }
