@@ -6,8 +6,6 @@
 #include <gsl/gsl-lite.hpp>
 
 namespace pcb_tools {
-
-
 std::string getEnvVar(const char *name)
 {
   std::string result;
