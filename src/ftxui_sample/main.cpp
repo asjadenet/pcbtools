@@ -9,6 +9,7 @@
 #include <optional>
 //#include <random>
 #include <string>
+#include <filesystem>
 //#include <thread>
 //#include <utility>
 //#include <vector>
@@ -52,16 +53,15 @@ int main(int argc, const char **argv)
       return EXIT_SUCCESS;
     }
 
-    const auto prefix = pcb_tools::get_prefix();
-    fmt::print("prefix:{}\n", prefix);
+    auto get_file_full_path = [](const std::string &prefix, const std::filesystem::path &dir) {
+      return dir / (prefix + "-Edge_Cuts.gbr");
+    };
 
-#if defined(WIN32)
-    const std::string file_path = R"(C:\Users\tiit\Documents\kicad\amp1\amp1-Edge_Cuts.gbr)";
-#else
-    const std::string file_path = R"(/mnt/c/Users/tiit/Documents/kicad/amp1/amp1-Edge_Cuts.gbr)";
-#endif
+    const auto file_full_path = dir
+                                  ? get_file_full_path(pcb_tools::get_prefix(dir.value()), dir.value())
+                                  : get_file_full_path(pcb_tools::get_prefix(), std::filesystem::current_path());
 
-    const auto board_info = pcb_tools::get_board_info(file_path);
+    const auto board_info = pcb_tools::get_board_info(file_full_path);
     fmt::print("x:{}, y:{}\n", board_info.start.x, board_info.start.y);
   } catch (const std::exception &e) { spdlog::error("Unhandled exception in main: {}", e.what()); }
 }
