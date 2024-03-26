@@ -1,0 +1,3 @@
+[submodule "external/gsl-lite"]
+	path = external/gsl-lite
+	url = https://github.com/gsl-lite/gsl-lite.git

@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <filesystem>
 #include <string>
-
+#include <gsl/gsl-lite.hpp>
 
 namespace pcb_tools {
 
@@ -12,17 +12,15 @@ std::string getEnvVar(const char *name)
 {
   std::string result;
 #if defined(_MSC_VER)
-  // Define a static const deleter inside the function to limit its scope and ensure it's immutable.
-  static const auto freeDeleter = [](char *ptr) { free(ptr); };
+  static const auto freeDeleter = [](gsl::owner<char *> ptr) { free(ptr); };
   using cstring_uptr = std::unique_ptr<char, decltype(freeDeleter)>;
 
-  char *rawValue = nullptr;
+  gsl::owner<char *> rawValue = nullptr;// Explicitly mark rawValue as an owner.
   size_t size = 0;
   if (_dupenv_s(&rawValue, &size, name) != 0 || rawValue == nullptr) {
     throw std::runtime_error("Failed to get environment variable.");
   }
-  // Declare the smart pointer const to enforce const-correctness.
-  const cstring_uptr value(rawValue, freeDeleter);
+  cstring_uptr value(rawValue, freeDeleter);// Transfer ownership to the smart pointer.
   result = value.get();
 #else
   const char *value = std::getenv(name);// NOLINT(concurrency-mt-unsafe)

@@ -15,7 +15,7 @@ add_library(pcbtools::pcb_library ALIAS pcb_library)
 target_link_libraries(pcb_library PRIVATE pcbtools_options pcbtools_warnings)
 
 target_include_directories(pcb_library ${WARNING_GUARD} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-                                                                  $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>)
+                                                                  $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include> ${PROJECT_SOURCE_DIR}/external/gsl-lite/include)
 
 target_compile_features(pcb_library PUBLIC cxx_std_20)
 
